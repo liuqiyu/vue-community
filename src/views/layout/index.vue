@@ -8,11 +8,20 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Topbar from './topbar/index';
 
 export default {
+  mounted() {
+    this.loginStatus();
+  },
   components: {
     Topbar,
+  },
+  methods: {
+    ...mapActions([
+      'loginStatus',
+    ]),
   },
 };
 </script>

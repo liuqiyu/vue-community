@@ -2,7 +2,7 @@
   <header class="App-header">
     <div class="wrap m-auto app-top flex-row">
       <h1><span class="iconfont icon-shequ2"></span>讨论区</h1>
-      <div class="right-bar">
+      <div class="right-bar" v-if="!this.$store.state.common.logined">
         <el-button type="primary"
                    size="small"
                    @click="register">注册</el-button>
@@ -10,6 +10,12 @@
                    icon="el-icon-check"
                    size="small"
                    @click="login">登录</el-button>
+      </div>
+      <div class="right-bar" v-if="this.$store.state.common.logined">
+        <el-button type="primary"
+                   size="small"
+                   icon="el-icon-close"
+                   @click="logout">注销</el-button>
       </div>
     </div>
     <Login
@@ -22,6 +28,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
+import user from './../../../api/user';
 import Login from './../login/index';
 import Register from './../register/index';
 
@@ -37,6 +45,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations([
+      'LOGOUT',
+    ]),
     register() {
       this.registerDialogVisible = true;
     },
@@ -49,12 +60,21 @@ export default {
     closeLogin() {
       this.loginDialogVisible = false;
     },
+    logout() {
+      user.logout().then((res) => {
+        if (res.data.code === 200) {
+          window.localStorage.removeItem('userInfo');
+          this.LOGOUT();
+        }
+      });
+    },
   },
 };
 </script>
 
 <style scoped lang="less">
   .App-header {
+    z-index: 999;
     position: fixed;
     top: 0;
     left: 0;

@@ -18,22 +18,22 @@
             </el-input>
           </div>
           <div class="h-item">
-            <el-select v-model="form.class_id" placeholder="请选择类型" size="small">
+            <el-select v-model="form.class_id" placeholder="请选择分类" size="small">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in classOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
               </el-option>
             </el-select>
           </div>
           <div class="h-item">
             <el-select v-model="form.tag_id" placeholder="请选择标签" size="small">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in tagOptions"
+                :key="item.id"
+                :label="item.name"
+                :value="item.id">
               </el-option>
             </el-select>
           </div>
@@ -43,7 +43,8 @@
             <mavon-editor v-model="form.art_text" style="height: 267px"/>
           </div>
           <footer>
-            <el-button type="primary" size="mini" @click="create">创建主题</el-button>
+            <el-button type="primary" size="mini" @click="create"
+                       :loading="createLoading">创建主题</el-button>
             <el-button type="text" @click="closeCreate">取消</el-button>
           </footer>
         </div>
@@ -56,6 +57,14 @@
 import overview from './../../api/overview';
 
 export default {
+  props: {
+    classOptions: {
+      type: Array,
+    },
+    tagOptions: {
+      type: Array,
+    },
+  },
   data() {
     return {
       value: '',
@@ -69,15 +78,27 @@ export default {
         value: '1',
         label: '黄金糕',
       }],
+      createLoading: false,
     };
   },
   methods: {
     create() {
-      console.log(this.form);
+      this.createLoading = true;
       overview.createArticle(this.form).then((res) => {
         if (res.data.code === 200) {
-          this.$message(res.data.message);
+          this.$message({
+            message: res.data.message,
+            type: 'success',
+          });
+        } else {
+          this.$message({
+            message: res.data.message,
+            type: 'error',
+          });
         }
+        this.createLoading = false;
+        this.closeCreate();
+        this.$emit('getData');
       });
     },
     openCreate() {

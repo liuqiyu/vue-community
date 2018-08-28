@@ -1,21 +1,16 @@
 import {
-  LOGIN_DIALOG_VISIBLE_OPEN,
-  LOGIN_DIALOG_VISIBLE_CLOSE,
-  REGISTER_DIALOG_VISIBLE_OPEN,
-  REGISTER_DIALOG_VISIBLE_CLOSE } from './mutation-types';
+  LOGIN,
+  LOGOUT } from './mutation-types';
 
 const mutations = {
-  [LOGIN_DIALOG_VISIBLE_OPEN](state) {
-    state.loginDialogVisible = true;
+  [LOGIN](state) {
+    state.logined = true;
+    const userInfo = JSON.parse(window.localStorage.getItem('userInfo'));
+    state.LoginedUser.username = userInfo.username;
   },
-  [LOGIN_DIALOG_VISIBLE_CLOSE](state) {
-    state.loginDialogVisible = false;
-  },
-  [REGISTER_DIALOG_VISIBLE_OPEN](state) {
-    state.registerDialogVisible = true;
-  },
-  [REGISTER_DIALOG_VISIBLE_CLOSE](state) {
-    state.registerDialogVisible = false;
+  [LOGOUT](state) {
+    state.logined = false;
+    state.LoginedUser.username = '';
   },
 };
 

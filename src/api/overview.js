@@ -2,11 +2,14 @@ import api from './index';
 
 const path = {
   getClass: '/overview/getClass',
+  getTag: '/overview/getTag',
   getArtList: '/overview/getArtList',
   createArticle: '/overview/createArticle',
 };
 
 const getClass = () => api.get(path.getClass);
+
+const getTag = () => api.get(path.getTag);
 
 const getArtList = () => api.get(path.getArtList);
 
@@ -28,6 +31,7 @@ const createArticle = form => api.post(path.createArticle, form, {
 
 export default {
   getClass,
+  getTag,
   getArtList,
   createArticle,
 };

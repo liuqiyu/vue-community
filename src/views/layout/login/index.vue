@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import user from './../../../api/user';
 
 export default {
@@ -54,6 +55,9 @@ export default {
     };
   },
   methods: {
+    ...mapMutations([
+      'LOGIN',
+    ]),
     handleClose() {
       this.$emit('closeLogin');
     },
@@ -67,13 +71,14 @@ export default {
                 type: 'success',
               });
               window.localStorage.setItem('userInfo', JSON.stringify(res.data.data));
+              this.LOGIN();
             } else {
               this.$message({
                 message: res.data.message,
                 type: 'error',
               });
             }
-            this.$emit('closeRegister');
+            this.$emit('closeLogin');
           });
         } else {
           return false;
