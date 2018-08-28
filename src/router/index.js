@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from '@/components/HelloWorld';
+const Layout = r => require.ensure([], () => r(require('@/views/layout/index.vue')), 'layout');
+const Overview = r => require.ensure([], () => r(require('@/views/overview/index.vue')), 'overview');
 
 Vue.use(Router);
 
@@ -8,8 +9,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld,
+      component: Layout,
+      children: [
+        {
+          path: '/',
+          name: 'overview',
+          component: Overview,
+        }
+      ]
     },
   ],
 });
