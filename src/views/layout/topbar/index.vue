@@ -1,7 +1,7 @@
 <template>
   <header class="App-header">
     <div class="wrap m-auto app-top flex-row">
-      <h1><span class="iconfont icon-shequ2"></span>讨论区</h1>
+      <h1 @click="refresh"><span class="iconfont icon-shequ2"></span>讨论区</h1>
       <div class="right-bar" v-if="!this.$store.state.common.logined">
         <el-button type="primary"
                    size="small"
@@ -66,6 +66,11 @@ export default {
           window.localStorage.removeItem('userInfo');
           this.LOGOUT();
         }
+      });
+    },
+    refresh() {
+      this.$router.push({
+        path: '/',
       });
     },
   },

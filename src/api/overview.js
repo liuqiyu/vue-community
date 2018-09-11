@@ -5,13 +5,22 @@ const path = {
   getTag: '/overview/getTag',
   getArtList: '/overview/getArtList',
   createArticle: '/overview/createArticle',
+  getArtDetails: '/overview/getArtDetails',
 };
 
 const getClass = () => api.get(path.getClass);
 
 const getTag = () => api.get(path.getTag);
 
-const getArtList = () => api.get(path.getArtList);
+const getArtList = (page, count, form) => api.get(path.getArtList, {
+  params: {
+    page,
+    count,
+    class_id: form.class_id,
+    tag_id: form.tag_id,
+    list_status: form.list_status,
+  },
+});
 
 const createArticle = form => api.post(path.createArticle, form, {
   headers: {
@@ -29,9 +38,16 @@ const createArticle = form => api.post(path.createArticle, form, {
   }],
 });
 
+const getArtDetails = id => api.get(path.getArtDetails, {
+  params: {
+    art_id: id,
+  },
+});
+
 export default {
   getClass,
   getTag,
   getArtList,
   createArticle,
+  getArtDetails,
 };

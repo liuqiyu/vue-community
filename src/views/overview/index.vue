@@ -2,7 +2,7 @@
   <div class="overvierw">
     <header class="flex-row o-header">
       <div>
-        <el-select v-model="value" placeholder="请选择分类" size="mini">
+        <el-select v-model="form.class_id" placeholder="请选择分类" size="mini" @change="getData">
           <el-option
             v-for="item in classOptions"
             :key="item.id"
@@ -10,7 +10,7 @@
             :value="item.id">
           </el-option>
         </el-select>
-        <el-select v-model="value" placeholder="请选择标签" size="mini">
+        <el-select v-model="form.tag_id" placeholder="请选择标签" size="mini" @change="getData">
           <el-option
             v-for="item in tagOptions"
             :key="item.id"
@@ -18,6 +18,11 @@
             :value="item.id">
           </el-option>
         </el-select>
+        <el-radio-group v-model="form.list_status" size="mini"
+                        v-if="this.$store.state.common.logined" @change="getData">
+          <el-radio-button label="1">所有</el-radio-button>
+          <el-radio-button label="2">我的</el-radio-button>
+        </el-radio-group>
       </div>
       <el-button
         v-if="this.$store.state.common.logined"
@@ -32,6 +37,9 @@
           prop="art_name"
           label="主题"
           width="180">
+          <template slot-scope="scope">
+            <span @click="toPage(scope.row)">{{scope.row.art_name}}</span>
+          </template>
         </el-table-column>
         <el-table-column
           prop="class_name"
@@ -74,7 +82,11 @@ export default {
   },
   data() {
     return {
-      value: '',
+      form: {
+        class_id: '',
+        tag_id: '',
+        list_status: 1,
+      },
       classOptions: [],
       tagOptions: [],
       tableData: [],
@@ -85,10 +97,12 @@ export default {
   },
   methods: {
     getData() {
-      overview.getArtList().then((res) => {
+      overview.getArtList(1, 20, this.form).then((res) => {
         if (res.data.code === 200) {
           if (res.data.data.length > 0) {
             this.tableData = res.data.data;
+          } else {
+            this.tableData = [];
           }
         }
       });
@@ -109,6 +123,11 @@ export default {
     },
     report() {
       this.$refs.create.openCreate();
+    },
+    toPage(item) {
+      this.$router.push({
+        path: `/page/${item.art_id}`,
+      });
     },
   },
 };
