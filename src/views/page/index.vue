@@ -1,5 +1,5 @@
 <template>
-  <div v-html="html"></div>
+  <div v-html="markdownHtml"></div>
 </template>
 
 <script>
@@ -13,6 +13,11 @@ export default {
     return {
       html: '',
     };
+  },
+  computed: {
+    markdownHtml() {
+      return marked(this.html, { sanitize: true });
+    },
   },
   methods: {
     getData() {
