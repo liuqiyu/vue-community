@@ -25,14 +25,13 @@
     </div>
     <span slot="footer" class="dialog-footer">
     <el-button @click="handleClose" size="mini">取 消</el-button>
-    <el-button type="primary" size="mini" @click="login('ruleForm')">确 定</el-button>
+    <el-button type="primary" size="mini" @click="logins('ruleForm')">确 定</el-button>
   </span>
   </el-dialog>
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
-import user from './../../../api/user';
+import { mapActions } from 'vuex';
 
 export default {
   props: {
@@ -55,30 +54,26 @@ export default {
     };
   },
   methods: {
-    ...mapMutations([
-      'LOGIN',
+    ...mapActions([
+      'login',
     ]),
     handleClose() {
       this.$emit('closeLogin');
     },
-    login(formName) {
+    logins(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          user.login(this.ruleForm).then((res) => {
-            if (res.data.code === 200) {
-              this.$message({
-                message: res.data.message,
-                type: 'success',
-              });
-              window.localStorage.setItem('userInfo', JSON.stringify(res.data.data));
-              this.LOGIN();
-            } else {
-              this.$message({
-                message: res.data.message,
-                type: 'error',
-              });
-            }
+          this.login(this.ruleForm).then((res) => {
             this.$emit('closeLogin');
+            this.$message({
+              message: res,
+              type: 'success',
+            });
+          }).catch((error) => {
+            this.$message({
+              message: error,
+              type: 'error',
+            });
           });
         } else {
           return false;

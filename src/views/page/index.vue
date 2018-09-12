@@ -1,5 +1,5 @@
 <template>
-  <div v-html="markdownHtml"></div>
+  <div v-html="markdownHtml" class="content"></div>
 </template>
 
 <script>
@@ -32,5 +32,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

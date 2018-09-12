@@ -1,13 +1,13 @@
 /************************* 常量 **************************/
-@marginAuto: 0 auto;
+$marginAuto: 0 auto;
 
 /************************* 样式 **************************/
 .m-auto {
-  margin: @marginAuto;
+  margin: $marginAuto;
 }
 
 .wrap {
-  width: 1200px;
+  width: 1100px;
 }
 
 .flex-row {
