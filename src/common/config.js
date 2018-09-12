@@ -4,6 +4,7 @@
  */
 
 let host = 'http://localhost:3333/';
+// let host = 'http://39.108.61.54:3333/';
 let apiHost = `${window.location.protocol}//${window.location.host}/api/`;
 
 console.log(process.env.NODE_ENV)
