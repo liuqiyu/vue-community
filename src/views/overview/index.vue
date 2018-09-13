@@ -32,11 +32,14 @@
     <section class="o-section">
       <el-table
         :data="tableData"
+        class="main-table"
         style="width: 100%">
         <el-table-column
           prop="art_name"
           label="主题"
-          width="180">
+          class-name="title"
+          :show-overflow-tooltip="true"
+          width="600">
           <template slot-scope="scope">
             <span @click="toPage(scope.row)">{{scope.row.art_name}}</span>
           </template>
@@ -44,23 +47,44 @@
         <el-table-column
           prop="class_name"
           label="分类"
-          width="180">
+          width="100">
+          <template slot-scope="scope">
+            <div class="td-class">
+              <i v-if="scope.row.class_id === 1" style="background-color: #92278F"></i>
+              <i v-else style="background-color: #3AB54A"></i>
+              <span>{{ scope.row.class_name }}</span>
+            </div>
+          </template>
         </el-table-column>
         <el-table-column
           prop="tag_name"
-          label="标签">
+          label="标签"
+          width="100">
+          <template slot-scope="scope">
+            <span class="td-tag">{{ scope.row.tag_name }}</span>
+          </template>
         </el-table-column>
         <el-table-column
           prop="username"
-          label="用户">
+          label="用户"
+          width="100">
+          <template slot-scope="scope">
+            <span class="username" :style="{ background: randomColor() }">
+              {{ scope.row.username.toUpperCase().slice(0, 1) }}
+            </span>
+          </template>
         </el-table-column>
         <el-table-column
+          header-align="center"
           prop="update_date"
-          label="更新时间">
+          label="更新时间"
+          width="100">
         </el-table-column>
         <el-table-column
+          header-align="center"
           prop="create_date"
-          label="创建时间">
+          label="创建时间"
+          width="100">
         </el-table-column>
       </el-table>
     </section>
@@ -73,6 +97,7 @@
 <script>
 import Create from './create';
 import overview from './../../api/overview';
+import { randomColor } from './../../common/utils';
 
 export default {
   mounted() {
@@ -90,6 +115,7 @@ export default {
       classOptions: [],
       tagOptions: [],
       tableData: [],
+      color: randomColor(),
     };
   },
   components: {
@@ -140,6 +166,33 @@ export default {
   }
 
   .o-section {
-    padding: 10px 3px;
+    padding: 10px 0;
+  }
+
+  .td-class {
+    position: relative;
+    padding-left: 10px;
+    i {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      margin-top: -8px;
+      display: block;
+      width: 5px;
+      height: 15px;
+    }
+  }
+  .username {
+    position: absolute;
+    top: 50%;
+    margin-top: -15px;
+    text-align: center;
+    line-height: 30px;
+    font-size: 20px;
+    border-radius: 50%;
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: #fff;
   }
 </style>

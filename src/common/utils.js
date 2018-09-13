@@ -25,13 +25,14 @@
  * @returns {*|boolean}
  */
 export const isArray = value => {
-    return value && typeof value === 'object' && value.constructor === Array;
+  return value && typeof value === 'object' && value.constructor === Array;
 };
 // export const isArray = value => {
 //     return value && typeof value === 'object' && value instanceof Array;
 // };
 // export const isArray = value => {
-//     return Array.isArray(value) || (typeof value === 'object' && Object.prototype.toString.call(value) === '[object Array]');
+//     return Array.isArray(value) ||
+// (typeof value === 'object' && Object.prototype.toString.call(value) === '[object Array]');
 // };
 
 /**
@@ -40,7 +41,7 @@ export const isArray = value => {
  * @returns {*|boolean}
  */
 export const isObject = value => {
-    return value && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Object]';
+  return value && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Object]';
 };
 
 /**
@@ -48,20 +49,20 @@ export const isObject = value => {
  * @returns {string}
  */
 export const browserType = () => {
-    const sUserAgent = navigator.userAgent.toLowerCase();
-    const bIsIpad = sUserAgent.match(/ipad/i) === "ipad";
-    const bIsIphoneOs = sUserAgent.match(/iphone os/i) === "iphone os";
-    const bIsMidp = sUserAgent.match(/midp/i) === "midp";
-    const bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) === "rv:1.2.3.4";
-    const bIsUc = sUserAgent.match(/ucweb/i) === "ucweb";
-    const bIsAndroid = sUserAgent.match(/android/i) === "android";
-    const bIsCE = sUserAgent.match(/windows ce/i) === "windows ce";
-    const bIsWM = sUserAgent.match(/windows mobile/i) === "windows mobile";
-    if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
-        return 'app'
-    } else {
-        return 'pc'
-    }
+  const sUserAgent = navigator.userAgent.toLowerCase();
+  const bIsIpad = sUserAgent.match(/ipad/i) === 'ipad';
+  const bIsIphoneOs = sUserAgent.match(/iphone os/i) === 'iphone os';
+  const bIsMidp = sUserAgent.match(/midp/i) === 'midp';
+  const bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) === 'rv:1.2.3.4';
+  const bIsUc = sUserAgent.match(/ucweb/i) === 'ucweb';
+  const bIsAndroid = sUserAgent.match(/android/i) === 'android';
+  const bIsCE = sUserAgent.match(/windows ce/i) === 'windows ce';
+  const bIsWM = sUserAgent.match(/windows mobile/i) === 'windows mobile';
+  if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+    return 'app';
+  } else {
+    return 'pc';
+  }
 };
 
 /**
@@ -69,7 +70,7 @@ export const browserType = () => {
  * @returns {boolean}
  */
 export const isAndroid = () => {
-    return /Android/i.test(navigator.userAgent) || /Linux/i.test(navigator.appVersion);
+  return /Android/i.test(navigator.userAgent) || /Linux/i.test(navigator.appVersion);
 };
 
 /**
@@ -77,7 +78,7 @@ export const isAndroid = () => {
  * @returns {boolean}
  */
 export const isIos = () => {
-    return (/ipad|iphone/i.test(navigator.userAgent));
+  return (/ipad|iphone/i.test(navigator.userAgent));
 };
 
 /**
@@ -85,7 +86,7 @@ export const isIos = () => {
  * @returns {boolean}
  */
 export const isSafari = () => {
-    return (/msie|applewebkit.+safari/i.test(navigator.userAgent));
+  return (/msie|applewebkit.+safari/i.test(navigator.userAgent));
 };
 
 /**
@@ -93,7 +94,7 @@ export const isSafari = () => {
  * @returns {boolean}
  */
 export const isWeixin = () => {
-    return /MicroMessenger/i.test(navigator.userAgent);
+  return /MicroMessenger/i.test(navigator.userAgent);
 };
 
 /**
@@ -102,7 +103,7 @@ export const isWeixin = () => {
  * @returns {any}
  */
 export const deepCopy = (value) => {
-    return JSON.parse(JSON.stringify(value));
+  return JSON.parse(JSON.stringify(value));
 };
 
 /**
@@ -112,7 +113,7 @@ export const deepCopy = (value) => {
  * @returns {boolean}
  */
 export const hasClass = (element, clas) => {
-    return (' ' + element.className + ' ').indexOf(' ' + clas + ' ') > -1;
+  return (' ' + element.className + ' ').indexOf(' ' + clas + ' ') > -1;
 };
 
 /**
@@ -122,11 +123,18 @@ export const hasClass = (element, clas) => {
  * @returns {string}
  */
 export const toPoint = (percent, num) => {
-    // 如果没传小数位，则默认保留两位小数
-    if (!num) {
-        num = 2;
-    }
-    let str = percent.replace("%", "");
-    str = str/100;
-    return str.toFixed(num);
+  // 如果没传小数位，则默认保留两位小数
+  if (!num) {
+    num = 2;
+  }
+  let str = percent.replace('%', '');
+  str = str/100;
+  return str.toFixed(num);
+};
+
+export const randomColor = () => {
+  const r = Math.floor(Math.random()*256);
+  const g = Math.floor(Math.random()*256);
+  const b = Math.floor(Math.random()*256);
+  return "rgb("+r+','+g+','+b+")";
 };

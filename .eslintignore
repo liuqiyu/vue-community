@@ -5,4 +5,5 @@
 /src/router/*
 /src/api/index.js
 /src/common/config.js
+/src/common/utils.js
 /src/views/page/*

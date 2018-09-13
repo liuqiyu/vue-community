@@ -10,6 +10,9 @@ ul, li { list-style: none}
     clear: both
 }
 
+.show {
+  display: block;
+}
 
 .gutter pre {
   color: #999;

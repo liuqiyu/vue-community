@@ -16,10 +16,13 @@
         label-width="100px"
         class="demo-ruleForm">
         <el-form-item label="用户名" prop="username">
-          <el-input v-model="ruleForm.username"></el-input>
+          <el-input v-model="ruleForm.username"
+                    @keyup.enter.native="logins('ruleForm')"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
-          <el-input type="password" v-model="ruleForm.password"></el-input>
+          <el-input type="password"
+                    v-model="ruleForm.password"
+                    @keyup.enter.native="logins('ruleForm')"></el-input>
         </el-form-item>
       </el-form>
     </div>

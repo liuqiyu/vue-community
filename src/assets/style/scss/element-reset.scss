@@ -1,3 +1,11 @@
 .el-button {
   border-radius: 0;
 }
+.main-table thead tr th{
+  border-bottom: 3px solid #ebeef5 !important;
+}
+
+.main-table tbody .title {
+  color: #222;
+  font-size: 16px;
+}
